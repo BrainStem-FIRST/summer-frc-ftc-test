@@ -63,8 +63,9 @@ public class PurePursuitSample extends CommandOpMode {
                 new StartWaypoint(0, 0),
                 //new GeneralWaypoint(200, 0, 0.8, 0.8, 30),
                 new EndWaypoint(
+
                         0, 400, 0, 0.5,
-                        0.5, 30, 0.8, 1
+                        0.5, 0, 0.8, 1
                 )
         );
 
