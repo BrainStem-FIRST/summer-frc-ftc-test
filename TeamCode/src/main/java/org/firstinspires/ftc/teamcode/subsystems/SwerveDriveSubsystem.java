@@ -9,11 +9,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class SwerveDriveSubsystem extends SubsystemBase {
 
-    private final MecanumDrive m_drive;
+    private final MecanumDrive mechanumDrive;
 
-    private final SwerveDriveKinematics m_driveKinematics;
+    private final SwerveDriveKinematics brainSTEMSwerve;
 
-    private final Encoder m_frontLeft, m_frontRight, m_backLeft, m_backRight;
+    private final Encoder frontLeft, frontRight, backLeft, backRight;
 
     private final double WHEEL_DIAMETER;
 
@@ -21,16 +21,16 @@ public class SwerveDriveSubsystem extends SubsystemBase {
      * Creates a new DriveSubsystem.
      */
     public SwerveDriveSubsystem(MotorEx p_frontLeftMotor, MotorEx p_frontRightMotor, MotorEx p_backLeftMotor, MotorEx p_backRightMotor, final double diameter) {
-        m_frontLeft = p_frontLeftMotor.encoder;
-        m_frontRight = p_frontRightMotor.encoder;
-        m_backLeft = p_backLeftMotor.encoder;
-        m_backRight = p_backRightMotor.encoder;
-        m_driveKinematics = new SwerveDriveKinematics();
+        frontLeft = p_frontLeftMotor.encoder;
+        frontRight = p_frontRightMotor.encoder;
+        backLeft = p_backLeftMotor.encoder;
+        backRight = p_backRightMotor.encoder;
+        brainSTEMSwerve = new SwerveDriveKinematics();
 
 
         WHEEL_DIAMETER = diameter;
 
-        m_drive = new MecanumDrive(p_frontLeftMotor, p_frontRightMotor, p_backLeftMotor, p_backRightMotor);
+        mechanumDrive = new MecanumDrive(p_frontLeftMotor, p_frontRightMotor, p_backLeftMotor, p_backRightMotor);
     }
 
     /**
@@ -50,48 +50,48 @@ public class SwerveDriveSubsystem extends SubsystemBase {
      * @param turnSpeed the commanded rotation
      */
     public void drive(double strafe, double forward, double turnSpeed) {
-        m_drive.driveRobotCentric(strafe, forward, turnSpeed);
+        mechanumDrive.driveRobotCentric(strafe, forward, turnSpeed);
     }
 
     public double getFrontLeftEncoderVal() {
-        return m_frontLeft.getPosition();
+        return frontLeft.getPosition();
     }
 
     public double getFrontRightEncoderVal() {
-        return m_frontRight.getPosition();
+        return frontRight.getPosition();
     }
 
     public double getbackRightEncoderDistance() {
-        return m_backRight.getRevolutions() * WHEEL_DIAMETER * Math.PI;
+        return backRight.getRevolutions() * WHEEL_DIAMETER * Math.PI;
     }
 
     public double getbackLeftEncoderDistance() {
-        return m_backLeft.getRevolutions() * WHEEL_DIAMETER * Math.PI;
+        return backLeft.getRevolutions() * WHEEL_DIAMETER * Math.PI;
     }
 
     public double getBackLeftEncoderVal() {
-        return m_backLeft.getPosition();
+        return backLeft.getPosition();
     }
 
     public double getBackRightEncoderVal() {
-        return m_backRight.getPosition();
+        return backRight.getPosition();
     }
 
     public double getFrontRightEncoderDistance() {
-        return m_frontRight.getRevolutions() * WHEEL_DIAMETER * Math.PI;
+        return frontRight.getRevolutions() * WHEEL_DIAMETER * Math.PI;
     }
 
     public double getFrontLeftEncoderDistance() {
-        return m_frontLeft.getRevolutions() * WHEEL_DIAMETER * Math.PI;
+        return frontLeft.getRevolutions() * WHEEL_DIAMETER * Math.PI;
     }
 
 
 
-    public void resetEncoders() {
-        m_frontRight.reset();
-        m_frontLeft.reset();
-        m_backRight.reset();
-        m_backLeft.reset();
+    public void resetAllEncoders() {
+        frontRight.reset();
+        frontLeft.reset();
+        backRight.reset();
+        backLeft.reset();
     }
 
     public double getAverageEncoderDistance() {
