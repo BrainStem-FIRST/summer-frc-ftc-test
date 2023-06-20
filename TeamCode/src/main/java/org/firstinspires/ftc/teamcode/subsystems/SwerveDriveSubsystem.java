@@ -20,17 +20,18 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     /**
      * Creates a new DriveSubsystem.
      */
-    public SwerveDriveSubsystem(MotorEx p_frontLeftMotor, MotorEx p_frontRightMotor, MotorEx p_backLeftMotor, MotorEx p_backRightMotor, final double diameter) {
-        frontLeft = p_frontLeftMotor.encoder;
-        frontRight = p_frontRightMotor.encoder;
-        backLeft = p_backLeftMotor.encoder;
-        backRight = p_backRightMotor.encoder;
+    public SwerveDriveSubsystem(MotorEx frontLeftMotor, MotorEx frontRightMotor, MotorEx backLeftMotor, MotorEx backRightMotor, final double diameter) {
+        frontLeft = frontLeftMotor.encoder;
+        frontRight = frontRightMotor.encoder;
+        backLeft = backLeftMotor.encoder;
+        backRight = backRightMotor.encoder;
+
         brainSTEMSwerve = new SwerveDriveKinematics();
 
 
         WHEEL_DIAMETER = diameter;
 
-        mechanumDrive = new MecanumDrive(p_frontLeftMotor, p_frontRightMotor, p_backLeftMotor, p_backRightMotor);
+        mechanumDrive = new MecanumDrive(frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor);
     }
 
     /**

@@ -19,6 +19,8 @@ import java.util.regex.Pattern
 
 apply plugin: 'com.android.application'
 
+def useProguard = false
+
 android {
 
     compileSdkVersion 29
@@ -57,8 +59,7 @@ android {
         minSdkVersion 24
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28
-
-        multiDexEnabled true
+        multiDexEnabled !useProguard
 
         /**
          * We keep the versionCode and versionName of robot controller applications in sync with
@@ -98,12 +99,26 @@ android {
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
             }
+
+            if (useProguard) {
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                        'proguard-rules.pro'
+                println(getProguardFiles())
+            }
         }
         debug {
             debuggable true
             jniDebuggable true
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
+            }
+
+            if (useProguard) {
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                        'proguard-rules.pro'
+                println(getProguardFiles())
             }
         }
     }
@@ -133,5 +148,7 @@ dependencies {
     implementation 'org.ftclib.ftclib:core:2.1.1'
     // the following is optional if you want vision
     implementation 'org.ftclib.ftclib:vision:2.1.0'
+    implementation 'org.openftc:apriltag:2.0.0'
+
 }
 

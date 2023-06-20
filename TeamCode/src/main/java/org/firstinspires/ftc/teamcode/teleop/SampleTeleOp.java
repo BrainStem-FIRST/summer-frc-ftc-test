@@ -22,10 +22,10 @@ public class SampleTeleOp extends CommandOpMode {
 
     @Override
     public void initialize() {
-        m_frontLeft = new MotorEx(hardwareMap, "FL");
-        m_frontRight = new MotorEx(hardwareMap, "FRandOdo");
-        m_backLeft = new MotorEx(hardwareMap, "BLandOdo");
-        m_backRight = new MotorEx(hardwareMap, "BRandOdo");
+        m_frontLeft = new MotorEx(hardwareMap, "FLdrive");
+        m_frontRight = new MotorEx(hardwareMap, "FRDandROdo");
+        m_backLeft = new MotorEx(hardwareMap, "BLDandLOdo");
+        m_backRight = new MotorEx(hardwareMap, "BRdrive");
 
         m_drive = new DriveSubsystem(m_frontLeft, m_frontRight, m_backLeft, m_backRight, WHEEL_DIAMETER);
 
@@ -35,6 +35,26 @@ public class SampleTeleOp extends CommandOpMode {
         register(m_drive);
         m_drive.setDefaultCommand(m_driveCommand);
 
+        telemetry.addData("Opmode :", "Init");
+        telemetry.update();
     }
+
+    public void run(){
+
+
+
+        telemetry.addData("Opmode :", "Run");
+        telemetry();
+        telemetry.update();
+
+    }
+
+
+    public void telemetry() {
+
+    }
+
+
+
 
 }
